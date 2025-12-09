@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>3.5.5</version>
+        <relativePath/> <!-- lookup parent from repository -->
+    </parent>
+    <groupId>com.tsh</groupId>
+    <artifactId>erechnung</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <name>erechnung</name>
+    <description>erechnung</description>
+    <url/>
+    <licenses>
+        <license/>
+    </licenses>
+    <developers>
+        <developer/>
+    </developers>
+    <scm>
+        <connection/>
+        <developerConnection/>
+        <tag/>
+        <url/>
+    </scm>
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <java.version>17</java.version>
+    </properties>
+
+    <dependencies>
+            <!-- Spring Boot starters -->
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-web</artifactId>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-data-mongodb</artifactId>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-security</artifactId>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-thymeleaf</artifactId>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-validation</artifactId>
+            </dependency>
+
+            <!-- JWT (jjwt) -->
+            <dependency>
+                <groupId>io.jsonwebtoken</groupId>
+                <artifactId>jjwt-api</artifactId>
+                <version>0.12.6</version>
+            </dependency>
+            <dependency>
+                <groupId>io.jsonwebtoken</groupId>
+                <artifactId>jjwt-impl</artifactId>
+                <version>0.12.6</version>
+                <scope>runtime</scope>
+            </dependency>
+            <dependency>
+                <groupId>io.jsonwebtoken</groupId>
+                <artifactId>jjwt-jackson</artifactId>
+                <version>0.12.6</version>
+                <scope>runtime</scope>
+            </dependency>
+
+            <!-- OpenHTMLToPDF (HTML -> PDF) -->
+            <dependency>
+                <groupId>com.openhtmltopdf</groupId>
+                <artifactId>openhtmltopdf-core</artifactId>
+                <version>1.0.10</version>
+            </dependency>
+            <dependency>
+                <groupId>com.openhtmltopdf</groupId>
+                <artifactId>openhtmltopdf-pdfbox</artifactId>
+                <version>1.0.10</version>
+            </dependency>
+
+            <!-- JAXB runtime -->
+            <dependency>
+                <groupId>org.glassfish.jaxb</groupId>
+                <artifactId>jaxb-runtime</artifactId>
+                <version>4.0.2</version>
+            </dependency>
+
+            <!-- Jackson JSR310 -->
+            <dependency>
+                <groupId>com.fasterxml.jackson.datatype</groupId>
+                <artifactId>jackson-datatype-jsr310</artifactId>
+            </dependency>
+
+            <!-- Lombok -->
+            <dependency>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+                <version>1.18.30</version>
+                <scope>provided</scope>
+            </dependency>
+
+            <!-- Testing -->
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-test</artifactId>
+                <scope>test</scope>
+            </dependency>
+        </dependencies>
+
+        <build>
+            <plugins>
+                <!-- Spring Boot Maven plugin -->
+                <plugin>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-maven-plugin</artifactId>
+                </plugin>
+
+                <!-- Lombok annotation processing -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <configuration>
+                        <annotationProcessorPaths>
+                            <path>
+                                <groupId>org.projectlombok</groupId>
+                                <artifactId>lombok</artifactId>
+                                <version>1.18.30</version>
+                            </path>
+                        </annotationProcessorPaths>
+                    </configuration>
+                </plugin>
+                <!-- JAXB code generation from XSD -->
+                <plugin>
+                    <groupId>org.jvnet.jaxb2.maven2</groupId>
+                    <artifactId>maven-jaxb2-plugin</artifactId>
+                    <version>0.14.0</version>
+                    <executions>
+                        <execution>
+                            <id>xrechnung</id>
+
+                            <goals>
+                                <goal>generate</goal>
+                            </goals>
+                            <configuration>
+                                <schemaDirectory>${project.basedir}/src/main/resources/xsd</schemaDirectory>
+                                <generateDirectory>${project.build.directory}/generated-sources/xjc</generateDirectory>
+<!--                                <forceRegenerate>true</forceRegenerate>-->
+                                <schemaIncludes>
+                                    <include>common/CCTS_CCT_SchemaModule-2.1.xsd</include>
+                                    <include>common/UBL-CommonAggregateComponents-2.1.xsd</include>
+                                    <include>common/UBL-CommonBasicComponents-2.1.xsd</include>
+                                    <include>common/UBL-CommonExtensionComponents-2.1.xsd</include>
+                                    <include>common/UBL-CommonSignatureComponents-2.1.xsd</include>
+                                    <include>common/UBL-CoreComponentParameters-2.1.xsd</include>
+                                    <include>common/UBL-ExtensionContentDataType-2.1.xsd</include>
+                                    <include>common/UBL-QualifiedDataTypes-2.1.xsd</include>
+                                    <include>common/UBL-SignatureAggregateComponents-2.1.xsd</include>
+                                    <include>common/UBL-SignatureBasicComponents-2.1.xsd</include>
+                                    <include>common/UBL-UnqualifiedDataTypes-2.1.xsd</include>
+                                    <include>common/UBL-XAdESv132-2.1.xsd</include>
+                                    <include>common/UBL-XAdESv141-2.1.xsd</include>
+                                    <include>common/UBL-xmldsig-core-schema-2.1.xsd</include>
+<!---->
+                                    <include>maindoc/*.xsd</include>
+                                </schemaIncludes>
+<!--                                <schemaIncludes>-->
+<!--                                    <include>UBL-Invoice-2.1.xsd</include>-->
+<!--                                </schemaIncludes>-->
+                                <generatePackage>com.tsh.erechnung.xrechnung.ubl</generatePackage>
+                            </configuration>
+                        </execution>
+                    </executions>
+                </plugin>
+
+            </plugins>
+        </build>
+    </project>
+

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8"/>
+    <title>Invoice [[${invoice.invoiceNumber}]]</title>
+    <style>
+        body { font-family: DejaVu Sans, Arial, Helvetica, sans-serif; font-size: 12px; }
+        .table { width: 100%; border-collapse: collapse; }
+        .table th, .table td { border: 1px solid #ddd; padding: 6px; }
+        .right { text-align: right; }
+    </style>
+</head>
+<body>
+<h1>Invoice <span th:text="${invoice.invoiceNumber}">INV-000</span></h1>
+<p>Date: <span th:text="${invoice.invoiceDate}">2025-09-11</span></p>
+
+<table class="table">
+    <thead>
+    <tr>
+        <th>#</th><th>Description</th><th>Qty</th><th>Unit</th><th class="right">Subtotal</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="item, iterStat : ${invoice.items}">
+        <td th:text="${iterStat.index + 1}">1</td>
+        <td th:text="${item.description}">Item</td>
+        <td th:text="${item.quantity}">1</td>
+        <td th:text="${item.unitPrice}">0.00</td>
+        <td class="right" th:text="${#numbers.formatDecimal(item.quantity * item.unitPrice, 2, 'COMMA', 2, 'POINT')}">0.00</td>
+    </tr>
+    </tbody>
+    <tfoot>
+    <tr><td colspan="4" class="right">Net</td><td class="right" th:text="${#numbers.formatDecimal(invoice.netAmount, 2, 'COMMA', 2, 'POINT')}">0.00</td></tr>
+    <tr><td colspan="4" class="right">Tax</td><td class="right" th:text="${#numbers.formatDecimal(invoice.taxAmount, 2, 'COMMA', 2, 'POINT')}">0.00</td></tr>
+    <tr><td colspan="4" class="right"><strong>Total</strong></td><td class="right" th:text="${#numbers.formatDecimal(invoice.totalAmount, 2, 'COMMA', 2, 'POINT')}">0.00</td></tr>
+    </tfoot>
+</table>
+</body>
+</html>
