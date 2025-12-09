@@ -155,6 +155,9 @@
                         </goals>
                         <configuration>
                             <schemaDirectory>src/main/resources/xsd</schemaDirectory>
+                            <schemaIncludes>
+                                <include>**/*.xsd</include>
+                            </schemaIncludes>
                             <generatePackage>com.tsh.erechnung.xrechnung.ubl</generatePackage>
                             <bindingDirectory>src/main/resources/xsd</bindingDirectory>
                             <bindingIncludes>
