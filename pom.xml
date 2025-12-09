@@ -159,7 +159,10 @@
                                 <include>**/*.xsd</include>
                             </schemaIncludes>
                             <generatePackage>com.tsh.erechnung.xrechnung.ubl</generatePackage>
+
                             <bindingDirectory>src/main/resources/xsd</bindingDirectory>
+<!--                        <bindingDirectory>src/main/resources/xsd/orders</bindingDirectory>-->
+
                             <bindingIncludes>
                                 <include>bindings.xjb</include>
                             </bindingIncludes>

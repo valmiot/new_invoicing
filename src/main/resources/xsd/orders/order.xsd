@@ -3,6 +3,7 @@
             targetNamespace="http://tempuri.org/PurchaseOrderSchema.xsd"
             elementFormDefault="qualified">
     <xsd:element name="PurchaseOrder" type="tns:PurchaseOrderType"/>
+
     <xsd:complexType name="PurchaseOrderType">
         <xsd:sequence>
             <xsd:element name="ShipTo" type="tns:USAddress" maxOccurs="2"/>
